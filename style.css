@@ -3,6 +3,7 @@
 * {
     font-family: Roboto;
     /* pointer-events: none; */
+    user-select: none;
 }
 
 heading {

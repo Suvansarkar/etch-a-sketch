@@ -18,12 +18,13 @@ function clear(){
 
 document.getElementById("clear").addEventListener("click", clear);
 
-for (let i = 0; i < gridSize*16; i++) {
+for (let i = 0; i < gridSize*gridSize; i++) {
     console.log(pixelSize);
     const div = document.createElement("div");
     div.style.width = pixelSize + "px";
     div.style.height = pixelSize + "px";
     div.classList.add("pixel");
+    div.setAttribute("draggable", false);
     div.addEventListener("mousedown", () => {
         div.style.backgroundColor = color;
     });
