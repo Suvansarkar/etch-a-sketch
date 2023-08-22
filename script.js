@@ -24,9 +24,9 @@ for (let i = 0; i < gridSize*16; i++) {
     div.style.width = pixelSize + "px";
     div.style.height = pixelSize + "px";
     div.classList.add("pixel");
-    // div.addEventListener("mouseover", (e) => {
-    //     div.style.backgroundColor = color;
-    // });
+    div.addEventListener("mousedown", () => {
+        div.style.backgroundColor = color;
+    });
     grid.appendChild(div);
 }
 

@@ -2,6 +2,7 @@
 
 * {
     font-family: Roboto;
+    /* pointer-events: none; */
 }
 
 heading {
