@@ -12,9 +12,11 @@
     </heading>
     <div id="grid" draggable="false"></div>
     <button id="clear">CLEAR</button>
+    <button id="random">Random</button>
     <label for="color-picker">Select a color:</label>
     <input id="color-picker" value="#ff0000" type="color" oninput="updateColor(this.value)">
-    <div class="slidecontainer">
+    <div class="slider-container">
+        <div class="slider-size-text"></div>
         <input type="range" min="1" max="50"  step="2" value="16" class="slider" id="myRange" oninput="updateCanvas(this.value)">
       </div>
     <script src="script.js"></script>

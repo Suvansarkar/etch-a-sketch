@@ -3,7 +3,7 @@ let gridSize = 16;
 let pixelSize = grid.clientHeight/gridSize;
 let color = "#ff0000";
 let flag = false;
-
+let random = false;
 // #808080
 
 function clear(){
@@ -21,10 +21,28 @@ function updateCanvas(value){
     gridSize = value;
     pixelSize = grid.clientHeight/gridSize;
     console.log(value);
+    document.querySelector(".slider-size-text").textContent = gridSize + "x" + gridSize;
     makeCanvas();
 }
 
+function getColor(){
+    if (random===false) {
+        return color;
+    }else {
+        let randcolor = Math.floor(Math.random()*16777215).toString(16);
+        return "#" + randcolor;
+    }
+}
+
 makeCanvas();
+
+document.getElementById("random").addEventListener("click", () => {
+    if (random===false) {
+        random=true;
+    }else {
+        random=false;
+    }
+});
 
 document.getElementById("clear").addEventListener("click", clear);
 
@@ -37,14 +55,14 @@ function makeCanvas(){
         div.classList.add("pixel");
         div.setAttribute("draggable", false);
         div.addEventListener("mousedown", () => {
-            div.style.backgroundColor = color;
+            div.style.backgroundColor = getColor();
         });
         grid.appendChild(div);
     }    
     document.querySelectorAll(".pixel").forEach((item)=>{
         item.addEventListener("mouseover", ()=>{
             if(flag===true){
-                item.style.backgroundColor = color;
+                item.style.backgroundColor = getColor();
             }
         });
     });
