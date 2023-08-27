@@ -6,6 +6,8 @@ let color = "#ff0000";
 let flag = false;
 let random = false;
 let darken = false;
+let rclick = "#FFFFFF";
+let right = false;
 // #808080
 
 function clear(){
@@ -87,13 +89,27 @@ function getColor(){
     }
 }
 
+function eraser(){
+    if (right===true) {
+        right=false;
+    }else {
+        right = true;
+    }
+    let temp = color;
+    color = rclick;
+    rclick = temp;
+}
+
 makeCanvas();
 
 document.getElementById("darken").addEventListener("click", () => {
     if (darken===false) {
+        document.getElementById("darken").style.backgroundColor = "#808080";
         darken=true;
+        document.getElementById("random").style.backgroundColor = "#ffffff";
         random=false;
     }else {
+        document.getElementById("darken").style.backgroundColor = "#ffffff";
         darken=false;
         random=false;
     }
@@ -101,9 +117,12 @@ document.getElementById("darken").addEventListener("click", () => {
 
 document.getElementById("random").addEventListener("click", () => {
     if (random===false) {
+        document.getElementById("random").style.backgroundColor = "#808080";
         random=true;
+        document.getElementById("darken").style.backgroundColor = "#ffffff";
         darken=false;
     }else {
+        document.getElementById("random").style.backgroundColor = "#ffffff";
         random=false;
         darken=false;
     }
@@ -119,13 +138,32 @@ function makeCanvas(){
         div.style.height = pixelSize + "px";
         div.classList.add("pixel");
         div.setAttribute("draggable", false);
-        div.addEventListener("mousedown", () => {
-            if (darken===false) {
+        div.addEventListener("mousedown", (e) => {
+            if(e.button === 2){
+                console.log("Eraser Switch");
+            }else if (right === false && darken===false) {
                 div.style.backgroundColor = getColor();
-            }else {
+            }else if (darken===true && right===false) {
+                div.style.backgroundColor = LightenDarkenColor(convertRgb(div.style.backgroundColor), -10);
+                console.log(darken);
+            }else if(right===true && darken===false){
+                div.style.backgroundColor = getColor();
+            }else if (right===true && darken===true){
+                eraser();
                 div.style.backgroundColor = LightenDarkenColor(convertRgb(div.style.backgroundColor), -10);
                 console.log(darken);
             }
+        });
+        div.addEventListener("contextmenu", (e)=>{
+            e.preventDefault();
+            if (right===true) {
+                right=false;
+            }else {
+                right = true;
+            }
+            let temp = color;
+            color = rclick;
+            rclick = temp;
         });
         grid.appendChild(div);
     }    
